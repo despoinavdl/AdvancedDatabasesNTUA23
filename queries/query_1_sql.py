@@ -19,10 +19,10 @@ df.createOrReplaceTempView("crime_records")
 
 query_string = "SELECT * FROM(\
    SELECT \
-    YEAR(`Date Rptd`) AS report_year, \
-    MONTH(`Date Rptd`) AS report_month, \
-    COUNT(*) AS crime_count, \
-    RANK() OVER (PARTITION BY YEAR(`Date Rptd`) ORDER BY COUNT(*) DESC) AS month_rank \
+    YEAR(`Date Rptd`) AS year, \
+    MONTH(`Date Rptd`) AS month, \
+    COUNT(*) AS crime_total, \
+    RANK() OVER (PARTITION BY YEAR(`Date Rptd`) ORDER BY COUNT(*) DESC) AS rank \
 FROM \
     crime_records \
 GROUP BY \
@@ -30,10 +30,10 @@ GROUP BY \
     MONTH(`Date Rptd`) \
 ) AS ranked_data \
 WHERE \
-    month_rank <= 3 \
+    rank <= 3 \
 ORDER BY \
-    report_year, \
-    month_rank;"
+    year, \
+    rank;"
 
 final_query = spark.sql(query_string)
 final_query.show()
