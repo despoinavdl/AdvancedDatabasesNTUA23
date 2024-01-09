@@ -17,17 +17,19 @@ df = spark.read.csv("hdfs://okeanos-master:54310/data/total_crime.csv" \
 df.createOrReplaceTempView("crime_records")
 
 
-query_string = "SELECT \
-    YEAR('Date Rptd') AS report_year, \
-    MONTH('Date Rptd') AS report_month, \
+query_string = "SELECT * FROM(\
+   SELECT \
+    YEAR(`Date Rptd`) AS report_year, \
+    MONTH(`Date Rptd`) AS report_month, \
     COUNT(*) AS crime_count, \
-    RANK() OVER (PARTITION BY YEAR('Date Rptd') ORDER BY COUNT(*) DESC) AS month_rank \
+    RANK() OVER (PARTITION BY YEAR(`Date Rptd`) ORDER BY COUNT(*) DESC) AS month_rank \
 FROM \
     crime_records \
 GROUP BY \
-    YEAR('Date Rptd'), \
-    MONTH('Rate Rptd') \
-HAVING \
+    YEAR(`Date Rptd`), \
+    MONTH(`Date Rptd`) \
+) AS ranked_data \
+WHERE \
     month_rank <= 3 \
 ORDER BY \
     report_year, \
