@@ -1,9 +1,9 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType, TimestampType, DoubleType, StringType, IntegerType, FloatType
+from pyspark.sql.types import IntegerType
 from pyspark.sql import functions as F
-from pyspark.sql.functions import year, month, count, dense_rank, col, to_date, row_number, mean, udf, cos, radians, sin, asin, sqrt, monotonically_increasing_id
+from pyspark.sql.functions import year, count, col, mean, cos, asin, sqrt, monotonically_increasing_id
 from pyspark.sql.window import Window
-import time, datetime
+import time
 
 start_time = time.time()
 
