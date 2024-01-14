@@ -103,3 +103,4 @@ top_result = top_result.withColumn("Vict Descent", map_function(df["Vict Descent
 bot_result = bot_result.withColumn("Vict Descent", map_function(df["Vict Descent"]))
 top_result.show()
 bot_result.show()
+print('Total time: ',time.time() - start_time , 'sec')
