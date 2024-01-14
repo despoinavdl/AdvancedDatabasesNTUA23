@@ -1,13 +1,7 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType, TimestampType, DoubleType, StringType, IntegerType, FloatType
-from pyspark.sql.functions import year, month, count, dense_rank, col, to_date, row_number, mean, udf, cos, radians, sin, asin, sqrt
-from pyspark.sql.window import Window
-import time, datetime
-import geopy.distance
-#from geopy.distance import geodesic
-#import pip
-#pip.main(['install', 'geopy'])
-#import geopy.distance
+from pyspark.sql.types import IntegerType
+from pyspark.sql.functions import year, count, col, mean, cos, asin, sqrt
+import time
 
 start_time = time.time()
 
