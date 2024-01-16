@@ -24,9 +24,6 @@ police_stations = spark.read.csv("hdfs://okeanos-master:54310/data/la_police_sta
 police_stations = police_stations.withColumn("PREC", col("PREC").cast(IntegerType()))
 
 # calculate the distance between two points [lat1, long1], [lat2, long2] in km
-#def get_distance(lat1, long1, lat2, long2):
-#    return distance.geodesic((lat1, long1), (lat2, long2)).km
-
 def get_distance(lat1, lon1, lat2, lon2):
     r = 6371 # km
     p = 3.14 / 180.0
@@ -40,19 +37,21 @@ df = df.select(df["LAT"], df["LON"], df["DATE OCC"], df["AREA"], df["Weapon Used
 firearm_crimes = df.filter(df["Weapon Used Cd"].like("1__"))
 
 joined_df = firearm_crimes.join(
+    #police_stations.hint("shuffle_hash"),
     police_stations,
     firearm_crimes["AREA"] == police_stations["PREC"],
     "left"
 )
+#joined_df.explain(extended=True)
 
 #filter out NULL
-filtered_df_a = joined_df.filter(((col("LAT") != 0.0) & (col("LON") != 0.0)) &
+filtered_df = joined_df.filter(((col("LAT") != 0.0) & (col("LON") != 0.0)) &
                                  (col("X").isNotNull()) &
                                  (col("Y").isNotNull())
 )
 
 #distance_udf = udf(get_distance, FloatType())
-distance_df = filtered_df_a.withColumn("distance", get_distance(col("LAT"), col("LON"), col("Y"), col("X")))
+distance_df = filtered_df.withColumn("distance", get_distance(col("LAT"), col("LON"), col("Y"), col("X")))
 distance_df = distance_df.withColumn("year", year("DATE OCC"))
 
 final = distance_df.groupBy("year").agg(
@@ -63,34 +62,9 @@ final = final.select("year", "average_distance", "#")
 
 final.show()
 
-#********************************************************************************************
 
-df_b = spark.read.csv("hdfs://okeanos-master:54310/data/total_crime.csv" \
-                ,header=True)
-
-df_b = df_b.withColumn("AREA", col("AREA").cast(IntegerType()))
-
-police_stations = spark.read.csv("hdfs://okeanos-master:54310/data/la_police_stations" \
-,header=True)
-
-police_stations = police_stations.withColumn("PREC", col("PREC").cast(IntegerType()))
-
-df_b = df_b.select(df_b["LAT"], df_b["LON"], df_b["DATE OCC"], df_b["AREA"], df_b["Weapon Used Cd"])
-
-joined_df_b = df_b.join(
-    police_stations,
-    df_b["AREA"] == police_stations["PREC"],
-    "left"
-)
-
-#filter NULL weapons
-filtered_df_b = joined_df_b.filter((col("Weapon Used Cd").isNotNull()) &
-                                  ((col("LAT") != 0.0) & (col("LON") != 0.0)) &
-                                 (col("X").isNotNull()) &
-                                 (col("Y").isNotNull())
-)
-
-distance_df_b = filtered_df_b.withColumn("distance", get_distance(col("LAT"), col("LON"), col("Y"), col("X")))
+#4_1_b
+distance_df_b = filtered_df.withColumn("distance", get_distance(col("LAT"), col("LON"), col("Y"), col("X")))
 
 final_b = distance_df_b.groupBy("DIVISION").agg(
     count("*").alias("#"),
