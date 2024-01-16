@@ -1,1 +1,34 @@
 # AdvancedDatabasesNTUA23
+Final project of the course Advanced Databases - 9th semester, Electrical Computer Engineering, National Technical University of Athens.
+
+Queries are implemented using Python 3.10.
+
+Detail description in the form of a report can be found [here](https://github.com/despoinavdl/AdvancedDatabasesNTUA23/blob/main/03119111_03119442.pdf)
+
+Project assignment can be found [here](https://github.com/despoinavdl/AdvancedDatabasesNTUA23/blob/main/advanced_db_project.pdf)
+
+# Contributors
+Vidali Despoina - 03119111 ([despoinavdl](https://github.com/despoinavdl)) 
+
+Arkadopoulou Eleftheria - 03119442 ([adamkapetis](https://github.com/adamkapetis)) 
+
+
+# Installation and xecution
+```bash
+git clone https://github.com/despoinavdl/AdvancedDatabasesNTUA23
+```
+Set up VMs and download data as described in the [assignment](https://github.com/despoinavdl/AdvancedDatabasesNTUA23/blob/main/advanced_db_project.pdf)
+
+Run 
+```bash
+start-dfs.sh
+start-yarn.sh
+$SPARK_HOME/sbin/start-history-server.sh
+```
+from the master node
+
+Run queries using 
+```bash
+spark-submit <query.py>
+```
+
