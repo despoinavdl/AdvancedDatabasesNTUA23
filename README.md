@@ -1,7 +1,7 @@
 # AdvancedDatabasesNTUA23
 Final project of the course Advanced Databases - 9th semester, Electrical Computer Engineering, National Technical University of Athens.
 
-Series of queries regarding the basic dataset of Los Angeles Crime Data [2010-2010](https://catalog.data.gov/dataset/crime-data-from-2010-to-2019)and [2020-2023](https://catalog.data.gov/dataset/crime-data-from-2020-to-present). Project runs on Apache Spark over Apache Hadoop Yarn using HDFS. All queries are implemented using Python 3.10.
+Series of queries on big data regarding the basic dataset of Los Angeles Crime Data [2010-2010](https://catalog.data.gov/dataset/crime-data-from-2010-to-2019)and [2020-2023](https://catalog.data.gov/dataset/crime-data-from-2020-to-present). Project runs on Apache Spark over Apache Hadoop Yarn using HDFS. All queries are implemented using Python PySpark.
 
 Detail description in the form of a report can be found [here](https://github.com/despoinavdl/AdvancedDatabasesNTUA23/blob/main/03119111_03119442.pdf).
 
@@ -25,7 +25,15 @@ start-dfs.sh
 start-yarn.sh
 $SPARK_HOME/sbin/start-history-server.sh
 ```
+```bash
+mkdir /data
+```
 from the master node.
+
+Upload data to HDFS
+```bash
+hdfs dfs -put /path/to/local/directory hdfs://okeanos-master:54310/data
+```
 
 Run queries using 
 ```bash
