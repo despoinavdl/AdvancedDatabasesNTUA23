@@ -13,7 +13,7 @@ Vidali Despoina - 03119111 ([despoinavdl](https://github.com/despoinavdl))
 Arkadopoulou Eleftheria - 03119442 ([adamkapetis](https://github.com/adamkapetis)) 
 
 
-# Installation and xecution
+# Installation and execution
 ```bash
 git clone https://github.com/despoinavdl/AdvancedDatabasesNTUA23
 ```
