@@ -31,5 +31,4 @@ Run queries using
 ```bash
 spark-submit <query.py>
 ```
-.
 
