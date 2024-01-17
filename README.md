@@ -10,7 +10,7 @@ Project assignment can be found [here](https://github.com/despoinavdl/AdvancedDa
 # Contributors
 Vidali Despoina - 03119111 ([despoinavdl](https://github.com/despoinavdl)) 
 
-Arkadopoulou Eleftheria - 03119442 ([adamkapetis](https://github.com/adamkapetis)) 
+Arkadopoulou Eleftheria - 03119442 ([fleria](https://github.com/adamkapetis)) 
 
 
 # Installation and execution
@@ -25,12 +25,9 @@ start-dfs.sh
 start-yarn.sh
 $SPARK_HOME/sbin/start-history-server.sh
 ```
-```bash
-mkdir /data
-```
 from the master node.
 
-Upload data to HDFS
+Upload data to /data in HDFS
 ```bash
 hdfs dfs -put /path/to/local/directory hdfs://okeanos-master:54310/data
 ```
