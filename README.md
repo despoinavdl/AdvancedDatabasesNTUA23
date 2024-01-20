@@ -21,9 +21,7 @@ Set up VMs and download data as described in the [assignment](https://github.com
 
 Run 
 ```bash
-start-dfs.sh
-start-yarn.sh
-$SPARK_HOME/sbin/start-history-server.sh
+./start_vm.sh
 ```
 from the master node.
 
