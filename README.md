@@ -27,7 +27,7 @@ Run
 ```bash
 ./start_vm.sh
 ```
-from the master node to start all services.
+from the master node to start all services
 
 Upload data to /data in HDFS
 ```bash
